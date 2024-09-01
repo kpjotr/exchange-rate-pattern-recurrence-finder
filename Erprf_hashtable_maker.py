@@ -16,7 +16,7 @@ precision = 4  # Kerekítés pontossága
 
 # CSV fájl beolvasása
 with open(file_path, newline='') as csvfile:
-    reader = csv.reader(csvfile, delimiter=',')
+    reader = csv.reader(csvfile, delimiter=';')
     data = list(reader)  # Minden sort beolvasunk
 
 print("Beolvasott adatok:", data)  # Ellenőrzés céljából kiírjuk a beolvasott adatokat
