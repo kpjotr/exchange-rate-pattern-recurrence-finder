@@ -17,27 +17,36 @@ precision = 4  # Kerekítés pontossága
 # CSV fájl beolvasása
 with open(file_path, newline='') as csvfile:
     reader = csv.reader(csvfile, delimiter=';')
-    data = list(reader)
-
-print(data)
-print(type(data))
+    data = [row for row in reader if len(row) > 1]  # Csak a nem üres sorok, amelyekben több elem is van
 
 # Eredmények tárolása dictionaryben
 results = {}
 
 # Feldolgozás soronként
-for i in range(len(data)): # lépdelünk a data sorain, de 3-al a vége előttig!
+for i in range(len(data)):
+    # Ellenőrizzük, hogy van-e elég elem a sorban
+    if len(data[i]) < 2:
+        continue  # Ha nincs, ugorjuk át ezt a sort
+
     # Az aktuális sor második eleme
-    current_value = float(data[i][1])
+    try:
+        current_value = float(data[i][1])
+    except ValueError:
+        print(f"Hiba történt a {i + 1}. sorban található érték konvertálása során: {data[i][1]}")
+        continue  # Hibás érték esetén ugorjuk át ezt a sort
+
     values_to_divide = []
 
     # Az osztások végrehajtása a következő sorok második elemével
     for j in range(i + 1, min(i + 1 + num_of_rows, len(data))):
         for k in range(1, len(data[j])):
-            divided_value = current_value / float(data[j][k])
-            print(float(data[j][k]))
-            rounded_value = round(divided_value, precision)
-            values_to_divide.append(str(rounded_value))
+            try:
+                divided_value = current_value / float(data[j][k])
+                rounded_value = round(divided_value, precision)
+                values_to_divide.append(str(rounded_value))
+            except (ValueError, ZeroDivisionError) as e:
+                print(f"Hiba történt az osztás során: {e}")
+                continue  # Hibás érték vagy 0-val való osztás esetén ugorjuk át ezt az osztást
 
     # Hash érték generálása az eredményekből
     combined_string = ','.join(values_to_divide)
@@ -51,4 +60,3 @@ for i in range(len(data)): # lépdelünk a data sorain, de 3-al a vége előttig
 # Eredmények kiíratása
 for date, hash_val in results.items():
     print(f"{date}: {hash_val}")
-
