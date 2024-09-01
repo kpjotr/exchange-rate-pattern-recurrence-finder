@@ -17,9 +17,7 @@ precision = 4  # Kerekítés pontossága
 # CSV fájl beolvasása
 with open(file_path, newline='') as csvfile:
     reader = csv.reader(csvfile, delimiter=';')
-    data = list(reader)
-
-print(data)
+    data = [row for row in reader if len(row) > 1]  # Csak a nem üres sorok, amelyekben több elem is van
 
 # Eredmények tárolása dictionaryben
 results = {}
@@ -44,7 +42,6 @@ for i in range(len(data)):
         for k in range(1, len(data[j])):
             try:
                 divided_value = current_value / float(data[j][k])
-                print(float(data[j][k]))
                 rounded_value = round(divided_value, precision)
                 values_to_divide.append(str(rounded_value))
             except (ValueError, ZeroDivisionError) as e:
