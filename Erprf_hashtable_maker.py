@@ -25,7 +25,7 @@ print("Beolvasott adatok:", data)  # Ellenőrzés céljából kiírjuk a beolvas
 results = {}
 
 # Feldolgozás soronként
-for i in range(len(data) - num_of_rows):
+for i in range(len(data)):
     # Ellenőrizzük, hogy van-e elég elem a sorban
     if len(data[i]) < 2:
         print(f"Átugrott üres vagy hiányos sor: {data[i]}")
