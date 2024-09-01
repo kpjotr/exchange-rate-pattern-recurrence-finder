@@ -16,7 +16,7 @@ precision = 4  # Kerekítés pontossága
 
 # CSV fájl beolvasása
 with open(file_path, newline='') as csvfile:
-    reader = csv.reader(csvfile, delimiter=',')  # Vesszővel tagolt fájl
+    reader = csv.reader(csvfile, delimiter=',')
     data = list(reader)  # Minden sort beolvasunk
 
 print("Beolvasott adatok:", data)  # Ellenőrzés céljából kiírjuk a beolvasott adatokat
@@ -41,18 +41,7 @@ for i in range(len(data)):
 
     values_to_divide = []
 
-    # Először osztás az aktuális sor többi elemével
-    for k in range(2, len(data[i])):  # Az aktuális sor második elemétől kezdve
-        try:
-            divided_value = current_value / float(data[i][k])
-            rounded_value = round(divided_value, precision)
-            values_to_divide.append(str(rounded_value))
-            print(f"Osztás eredménye (aktuális sor {i+1}, oszlop {k+1}): {rounded_value}")  # Debug print
-        except (ValueError, ZeroDivisionError) as e:
-            print(f"Hiba történt az osztás során: {e}")
-            continue  # Hibás érték vagy 0-val való osztás esetén ugorjuk át ezt az osztást
-
-    # Majd osztás a következő sorok második elemével
+    # Az osztások végrehajtása a következő sorok második elemével
     for j in range(i + 1, min(i + 1 + num_of_rows, len(data))):
         for k in range(1, len(data[j])):
             try:
