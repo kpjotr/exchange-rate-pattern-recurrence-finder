@@ -103,20 +103,22 @@ for date, hash_value in results.items():
 # 2. Csak azokat tartjuk meg, ahol több dátum is tartozik ugyanahhoz a hash értékhez
 duplicates = {hash_value: dates for hash_value, dates in hash_to_dates.items() if len(dates) > 1}
 
-# 3. Az eredmények kiíratása
-print("Azonos hash értékekkel rendelkező dátumok:")
-for hash_value, dates in duplicates.items():
-    print(f"Hash érték: {hash_value} -> Dátumok: {', '.join(dates)}")
-
-# 4. Eredmények elmentése CSV fájlba
-output_file = "azonos_hash_ertekek.csv"
-
-with open(output_file, mode='w', newline='') as file:
-    writer = csv.writer(file)
-    writer.writerow(["Hash érték", "Dátumok"])
-
+# 3. Az eredmények kiíratása és fájlmentés ellenőrzése
+if duplicates:
+    print("Azonos hash értékekkel rendelkező dátumok:")
     for hash_value, dates in duplicates.items():
-        writer.writerow([hash_value, ', '.join(dates)])
+        print(f"Hash érték: {hash_value} -> Dátumok: {', '.join(dates)}")
 
-print(f"Eredmények elmentve a {output_file} fájlba.")
+    # 4. Eredmények elmentése CSV fájlba
+    output_file = "azonos_hash_ertekek.csv"
 
+    with open(output_file, mode='w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(["Hash érték", "Dátumok"])
+
+        for hash_value, dates in duplicates.items():
+            writer.writerow([hash_value, ', '.join(dates)])
+
+    print(f"Eredmények elmentve a {output_file} fájlba.")
+else:
+    print("Nincsenek azonos hash értékek.")
