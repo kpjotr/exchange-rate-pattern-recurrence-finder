@@ -13,12 +13,18 @@ import hashlib
 in_file_path = input("Add meg a .CSV fájl nevét vagy ENTER az alapértelmezetthez! (alapértelmezett: Munkalap3.csv): ")  # CSV fájl elérési útja
 if in_file_path == "":
     file_path = 'Munkalap3.csv'
-in_num_of_rows = int(input("Vizsgált dátumok száma a kezdődátum után vagy ENTER az alapértelmezetthez! (alapértelmezett: 3): ")) # Felhasználó által megadott sorok száma
+else:
+    file_path = in_file_path
+in_num_of_rows = (input("Vizsgált dátumok száma a kezdődátum után vagy ENTER az alapértelmezetthez! (alapértelmezett: 3): ")) # Felhasználó által megadott sorok száma
 if in_num_of_rows == "":
     num_of_rows = 3
-in_precision = int(input("Kerekítés pontossága vagy ENTER az alapértelmezetthez! (alapértelmezett: 3): "))  # Kerekítés pontossága
+else:
+    num_of_rows = int(in_num_of_rows)
+in_precision = (input("Kerekítés pontossága vagy ENTER az alapértelmezetthez! (alapértelmezett: 3): "))  # Kerekítés pontossága
 if in_precision == "":
     precision = 3
+else:
+    precision = int(in_precision)
 
 # CSV fájl beolvasása
 with open(file_path, newline='') as csvfile:
