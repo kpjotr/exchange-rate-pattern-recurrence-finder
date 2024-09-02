@@ -11,8 +11,8 @@ import hashlib
 
 # Felhasználói bemenetek
 file_path = 'Munkalap3.csv'  # CSV fájl elérési útja
-num_of_rows = 3  # Felhasználó által megadott sorok száma
-precision = 4  # Kerekítés pontossága
+num_of_rows = int(input("Vizsgált dátumok száma a kezdődátum után: ")) # Felhasználó által megadott sorok száma
+precision = int(input("Kerekítés pontossága: "))  # Kerekítés pontossága
 
 # CSV fájl beolvasása
 with open(file_path, newline='') as csvfile:
@@ -87,7 +87,7 @@ while 0 == 0:
     user_answer = input(f"\r Mehetünk tovább? (y/n): ")
     if user_answer == "n":
         exit()
-    elif user_answer == "y:
+    elif user_answer == "y":
         break
     else:
         continue
