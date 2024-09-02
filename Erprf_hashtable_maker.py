@@ -27,9 +27,18 @@ else:
     precision = int(in_precision)
 
 # CSV fájl beolvasása
-with open(file_path, newline='') as csvfile:
-    reader = csv.reader(csvfile, delimiter=',')  # Vesszővel tagolt fájl
-    data = list(reader)  # Minden sort beolvasunk
+try:
+    with open(file_path, newline='') as csvfile:
+        reader = csv.reader(csvfile, delimiter=',')  # Vesszővel tagolt fájl
+        data = list(reader)  # Minden sort beolvasunk
+except FileNotFoundError:
+    print(f"Hiba: A megadott '{file_path}' fájl nem található.")
+except PermissionError:
+    print(f"Hiba: Nincs jogosultság a fájl megnyitására: {file_path}")
+except IOError as e:
+    print(f"Hiba történt a fájl beolvasása közben: {e}")
+except Exception as e:
+    print(f"Ismeretlen hiba történt a fájl megnyitása közben: {e}")
 
 print("Beolvasott adatok:", data)  # Ellenőrzés céljából kiírjuk a beolvasott adatokat
 
