@@ -32,13 +32,17 @@ try:
         reader = csv.reader(csvfile, delimiter=',')  # Vesszővel tagolt fájl
         data = list(reader)  # Minden sort beolvasunk
 except FileNotFoundError:
-    print(f"Hiba: A megadott '{file_path}' fájl nem található.")
+    print(f"\nHiba: A megadott '{file_path}' fájl nem található.")
+    exit(1)  # Kilépés hibakóddal
 except PermissionError:
-    print(f"Hiba: Nincs jogosultság a fájl megnyitására: {file_path}")
+    print(f"\nHiba: Nincs jogosultság a fájl megnyitására: {file_path}")
+    exit(1)  # Kilépés hibakóddal
 except IOError as e:
-    print(f"Hiba történt a fájl beolvasása közben: {e}")
+    print(f"\nHiba történt a fájl beolvasása közben: {e}")
+    exit(1)  # Kilépés hibakóddal
 except Exception as e:
-    print(f"Ismeretlen hiba történt a fájl megnyitása közben: {e}")
+    print(f"\nIsmeretlen hiba történt a fájl megnyitása közben: {e}")
+    exit(1)  # Kilépés hibakóddal
 
 print("Beolvasott adatok:", data)  # Ellenőrzés céljából kiírjuk a beolvasott adatokat
 
