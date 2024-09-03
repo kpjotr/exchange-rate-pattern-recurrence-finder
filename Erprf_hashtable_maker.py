@@ -144,6 +144,10 @@ if duplicates:
         for hash_value, dates in duplicates.items():
             writer.writerow([hash_value, ', '.join(dates)])
 
-    print(f"Eredmények elmentve a {output_file} fájlba.")
+    print(f"Eredmények elmentve a {output_file} fájlba.\n")
+    print(f"Vizsgált fájl: {file_path}")
+    print(f"Vizsgált napok  száma: {num_of_rows + 1}")
+    print(f"Precizitás: {precision}")
+    print(f"Azonosságok száma: {len(duplicates)}")
 else:
     print("Nincsenek azonos hash értékek.")
